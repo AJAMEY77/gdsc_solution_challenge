@@ -212,31 +212,31 @@ class MainClass {
 class Weather {
   int id;
   // MainEnum main;
-  Description description;
+  // Description description;
   String icon;
 
   Weather({
     required this.id,
     // required this.main,
-    required this.description,
+    // required this.description,
     required this.icon,
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) => Weather(
         id: json["id"],
         // main: json["main"],//!,
-        description: json["description"],
+        // description: json["description"],
         icon: json["icon"],
       );
 }
 
-enum Description {
-  BROKEN_CLOUDS,
-  CLEAR_SKY,
-  FEW_CLOUDS,
-  OVERCAST_CLOUDS,
-  SCATTERED_CLOUDS
-}
+// enum Description {
+//   BROKEN_CLOUDS,
+//   CLEAR_SKY,
+//   FEW_CLOUDS,
+//   OVERCAST_CLOUDS,
+//   SCATTERED_CLOUDS
+// }
 
 // final mainEnumValues =
 //     EnumValues({"Clear": MainEnum.CLEAR, "Clouds": MainEnum.CLOUDS});

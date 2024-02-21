@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:lottie/lottie.dart';
 import 'package:weather/screens/our_themes.dart';
+import 'package:weather/screens/homepage.dart';
+import 'dart:async';
+
 import 'package:weather/screens/weather.dart';
 
 void main() {
@@ -19,52 +21,64 @@ class MyApp extends StatelessWidget {
       darkTheme: CustomThemes.darkTheme, //theme changing
       themeMode: ThemeMode.system, //theme changed on the base of system
       debugShowCheckedModeBanner: false,
-      home: const SplashScre(),
-      title: " Whether App ",
+      routes: {
+        '/': (BuildContext context) => const load(),
+        '/HomePage': (BuildContext context) => const HomePage(),
+        '/WhetherApp': (BuildContext context) => const WhetherApp(),
+      },
+      title: "TechFarma",
     );
   }
 }
 
-class SplashScre extends StatelessWidget {
-  const SplashScre({Key? key});
+class load extends StatefulWidget {
+  const load({super.key});
+
+  @override
+  State<load> createState() {
+    return _loadState();
+  }
+}
+
+// ignore: camel_case_types
+class _loadState extends State<load> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(
+        const Duration(seconds: 8),
+        () => Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const HomePage())));
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSplashScreen(
-      splash: ListView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        /* Enable scrolling  */
-        children: [
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset('assets/splash_screen1.gif', height: 250),
-                /* Adjust the height as needed */
-                const SizedBox(height: 16),
-                /* Add some spacing */
-                SingleChildScrollView(
-                  child: const Text(
-                    'Weather App',
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.pink),
-                  ),
-                ),
-              ],
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 150.0),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            SizedBox(
+              width: 300,
+              height: 300,
+              child: Lottie.network(
+                  'https://lottie.host/495e8829-e500-4c2f-be41-f822fd1cfd69/UIeFgUUVuc.json'),
             ),
-          ),
-        ],
+            Text(
+              ' Grow Green. Grow Smart.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 19,
+                fontWeight: FontWeight.bold,
+
+                //letterSpacing: 8.0,
+                wordSpacing: 7.0,
+                color: Colors.blue,
+              ),
+            ),
+          ]),
+        ),
       ),
-      backgroundColor: Color.fromARGB(255, 247, 221, 194),
-      nextScreen: WhetherApp(),
-      splashIconSize: 250,
-      duration: 2500,
-      splashTransition: SplashTransition.sizeTransition,
-      pageTransitionType: PageTransitionType.leftToRightWithFade,
-      animationDuration: const Duration(seconds: 1),
     );
   }
 }

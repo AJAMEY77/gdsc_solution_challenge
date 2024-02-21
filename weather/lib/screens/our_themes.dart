@@ -12,7 +12,7 @@ class CustomThemes {
       ));
 
   static final darkTheme = ThemeData(
-      cardColor: Colors.green[200],
+      cardColor: Colors.lightBlue,
       fontFamily: "poppins",
       scaffoldBackgroundColor: Colors.black,
       primaryColor: Colors.white,

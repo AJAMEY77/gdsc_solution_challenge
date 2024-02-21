@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:weather/screens/homepage.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:weather/Models/current_weather_moule.dart';
+import 'package:weather/Models/hourly_weather_module.dart';
 import 'package:weather/const/colors.dart';
 import 'package:weather/const/images.dart';
 import 'package:weather/controllers/main_controller.dart';
@@ -127,9 +128,9 @@ class WhetherApp extends StatelessWidget {
                       children: List.generate(3, (index) {
                         var iconList = [clouds, humidity, windspeed];
                         var values = [
-                          "${data.clouds.all}%",
-                          "${data.main.humidity}%",
-                          "${data.wind.speed}km/h"
+                          "\t\t\t\t${data.clouds.all}%\nClouds",
+                          "\t\t\t\t\t${data.main.humidity}%\nHumidity",
+                          "\t\t${data.wind.speed}km/h\nWindSpeed"
                         ];
                         return Column(children: [
                           Image.asset(
@@ -150,34 +151,54 @@ class WhetherApp extends StatelessWidget {
                     10.heightBox,
                     const Divider(),
                     10.heightBox,
-                    SizedBox(
-                      height: 150,
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: 6,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            padding: const EdgeInsets.all(8),
-                            margin: const EdgeInsets.only(right: 4),
-                            decoration: BoxDecoration(
-                              color: cardColor,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Column(
-                              children: [
-                                "${index + 1} AM".text.gray200.make(),
-                                Image.asset(
-                                  "assets/weather/09n.png",
-                                  width: 80,
-                                ),
-                                "38°".text.white.make(),
-                              ],
+                    FutureBuilder(
+                      future: controller.HourlyWeatherData,
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          HourlyWeatherData hourlyData = snapshot.data;
+                          return SizedBox(
+                            height: 150,
+                            child: ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: hourlyData.list!.length > 6
+                                  ? 6
+                                  : hourlyData.list!.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                var time = DateFormat.jm().format(
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                        hourlyData.list![index].dt.toInt() *
+                                            1000));
+                                return Container(
+                                  padding: const EdgeInsets.all(8),
+                                  margin: const EdgeInsets.only(right: 4),
+                                  decoration: BoxDecoration(
+                                    color: cardColor,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      "$time".text.gray200.make(),
+                                      Image.asset(
+                                        "assets/weather/${hourlyData.list![index].weather![0].icon}.png",
+                                        width: 80,
+                                      ),
+                                      "${hourlyData.list[index].main.temp}°"
+                                          .text
+                                          .white
+                                          .make(),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
                           );
-                        },
-                      ),
+                        }
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
                     ),
                     10.heightBox,
                     const Divider(),
@@ -228,14 +249,14 @@ class WhetherApp extends StatelessWidget {
                                   RichText(
                                       text: TextSpan(children: [
                                     TextSpan(
-                                        text: "37°",
+                                        text: "27°",
                                         style: TextStyle(
                                           color: theme.primaryColor,
                                           fontFamily: "poppins",
                                           fontSize: 16,
                                         )),
                                     TextSpan(
-                                        text: "37°",
+                                        text: "23°",
                                         style: TextStyle(
                                           color: theme.primaryColor,
                                           fontFamily: "poppins",
