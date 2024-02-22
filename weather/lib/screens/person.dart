@@ -71,6 +71,8 @@ class person extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
+        backgroundColor: Colors.blueAccent,
+        foregroundColor: Colors.white,
       ),
       body: Container(
         padding: const EdgeInsets.all(10),

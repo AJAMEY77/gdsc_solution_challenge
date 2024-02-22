@@ -26,8 +26,8 @@ class WhetherApp extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: "$date".text.color(theme.primaryColor).make(), //to display date
-
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blueAccent,
+        foregroundColor: Colors.white,
         elevation: 0.0,
         actions: [
           Obx(
@@ -280,4 +280,3 @@ class WhetherApp extends StatelessWidget {
     );
   }
 }
-
