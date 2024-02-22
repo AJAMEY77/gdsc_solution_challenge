@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather/screens/cropDoc.dart';
 import 'package:weather/screens/person.dart';
 import 'package:weather/screens/PestisidesSection.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -29,6 +30,14 @@ class _HomePageState extends State<HomePage> {
     Icon(MdiIcons.spray, color: Colors.blue, size: 33),
     Icon(MdiIcons.bacteriaOutline, color: Colors.green, size: 33),
     Icon(MdiIcons.seedPlusOutline, color: Colors.yellow, size: 33),
+  ];
+
+  List<Widget> pages = [
+    PestisidesSection(),
+    WhetherApp(),
+    cropDoc(),
+    // AgriStore(),
+    person(),
   ];
 
   @override
@@ -206,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: EdgeInsets.only(top: 400),
                     child: Text(
-                      "  Recommonded Pesticides",
+                      "  Recommended Pesticides",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 19,
@@ -219,63 +228,60 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
+              Padding(
+                padding: EdgeInsets.only(top: 500),
+                child: Text(
+                  "Pages",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 19,
+                      color: Colors.black.withOpacity(0.7)),
+                ),
+              ),
+              SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: catNames.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => pages[index]),
+                        );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(8),
+                        width: 150,
+                        decoration: BoxDecoration(
+                          color: Colors.blueGrey,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            catIcons[index],
+                            SizedBox(height: 8),
+                            Text(
+                              catNames[index],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.blueAccent,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.white,
-        unselectedLabelStyle: const TextStyle(color: Colors.blueAccent),
-        selectedLabelStyle: const TextStyle(color: Colors.white),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-            ),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.cloud,
-              ),
-              label: "Weather"), // Changed the label to "Weather"
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.medication,
-              ),
-              label: "CropDoctor"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.shopping_basket,
-              ),
-              label: "AgriStore"),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-            ),
-            label: "Profile",
-          )
-        ],
-        currentIndex: _tabIndex,
-        onTap: (int index) {
-          setState(() {
-            _tabIndex = index;
-          });
-          if (index == 4) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => person()),
-            );
-          } else if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => WhetherApp()),
-            );
-          }
-        },
       ),
     );
   }

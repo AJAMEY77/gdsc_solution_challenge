@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lottie/lottie.dart';
+import 'package:weather/screens/home.dart';
 import 'package:weather/screens/our_themes.dart';
 import 'package:weather/screens/homepage.dart';
 import 'dart:async';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (BuildContext context) => const load(),
+        '/home': (BuildContext context) => const home(),
         '/HomePage': (BuildContext context) => const HomePage(),
         '/WhetherApp': (BuildContext context) => const WhetherApp(),
       },
@@ -47,8 +49,8 @@ class _loadState extends State<load> {
     super.initState();
     Timer(
         const Duration(seconds: 8),
-        () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomePage())));
+        () => Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const home())));
   }
 
   @override

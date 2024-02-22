@@ -31,13 +31,13 @@ class PestisidesSection extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child:Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Stack(
                         children: [
                           InkWell(
-                            onTap: (){},
+                            onTap: () {},
                             child: ClipRRect(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(15),
@@ -58,7 +58,7 @@ class PestisidesSection extends StatelessWidget {
                               height: 45,
                               width: 45,
                               decoration: BoxDecoration(
-                                color:Colors.white,
+                                color: Colors.white,
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
@@ -70,8 +70,7 @@ class PestisidesSection extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Icon(Icons.favorite_border_outlined,
-                                color: Colors.blueAccent,
-                                size: 28),
+                                    color: Colors.blueAccent, size: 28),
                               ),
                             ),
                           )
@@ -80,22 +79,22 @@ class PestisidesSection extends StatelessWidget {
                       SizedBox(height: 3),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child:Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Firroant",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.blueAccent
-                            ),),
-                            Text("Insecticide",
+                            Text(
+                              "Firroant",
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.blueAccent),
+                            ),
+                            Text(
+                              "Insecticide",
                               style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.black.withOpacity(0.5)
-                              ),),
-
-
+                                  color: Colors.black.withOpacity(0.5)),
+                            ),
                           ],
                         ),
                       )
